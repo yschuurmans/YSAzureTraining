@@ -1,0 +1,15 @@
+﻿@model DetailsModel
+@{
+    ViewData["Title"] = "Details";
+}
+<h1>@ViewData["Title"]</h1>
+<div class="row">
+    <div class="col-md-10 offset-md-1">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">@Model.Registration.Firstname @Model.Registration.Lastname</h4>
+                <img src="@Model.Registration.GetPhoto()" alt="@Model.Registration.ToString()" style="width:100%"/>
+            </div>
+        </div>
+    </div>
+</div>

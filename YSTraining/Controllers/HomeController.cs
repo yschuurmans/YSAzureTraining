@@ -9,12 +9,12 @@ using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Threading.Tasks;
-using YSTraining.Models;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.Table;
 using Microsoft.Extensions.Configuration;
+using Domain.Models;
 
 namespace YSTraining.Controllers
 {
@@ -34,6 +34,26 @@ namespace YSTraining.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+
+        public async Task<IActionResult> Details(string user)
+        {
+            var tableClient = csa.CreateCloudTableClient();
+
+            var table = tableClient.GetTableReference("regTable");
+
+            await table.CreateIfNotExistsAsync();
+
+            var lastname = user.Split("_")[1];
+
+            var result = await table.ExecuteQuerySegmentedAsync<RegisterModel>(new TableQuery<RegisterModel>(), null);
+
+            var viewModel = new DetailsModel()
+            {
+                Registration = (RegisterModel)result.Results.FirstOrDefault(x=>x.ToString() == user)
+            };
+
+            return View(viewModel);
         }
 
         public async Task<IActionResult> RegisterAsync()

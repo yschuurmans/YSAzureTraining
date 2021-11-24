@@ -9,28 +9,28 @@
             <div class="card-body">
                 <h5 class="card-title">Use this page to Register.</h5>
                 @*<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>*@
-                @using (Html.BeginForm("Register", "Home", FormMethod.Post, new { enctype="multipart/form-data"}))
-            {
-                <div class="row">
-                    @Html.NameFor(m => m.Firstname)
-                    @Html.TextBoxFor(m => m.Firstname, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.Firstname)
-                </div>
+                @using (Html.BeginForm("Register", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div class="row">
+                        @Html.NameFor(m => m.Firstname)
+                        @Html.TextBoxFor(m => m.Firstname, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Firstname)
+                    </div>
 
-                <div class="row">
-                    @Html.NameFor(m => m.Lastname)
-                    @Html.TextBoxFor(m => m.Lastname, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.Lastname)
-                </div>
-                <div class="row">
-                    <p>Photo</p>
-                    <input type="file" name="postedFiles" />
-                </div>
-                <br />
-                <div class="row">
-                    <input type="submit" value="Submit" class="btn btn-success" />
-                </div>
-            }
+                    <div class="row">
+                        @Html.NameFor(m => m.Lastname)
+                        @Html.TextBoxFor(m => m.Lastname, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Lastname)
+                    </div>
+                    <div class="row">
+                        <p>Photo</p>
+                        <input type="file" name="postedFiles" />
+                    </div>
+                    <br />
+                    <div class="row">
+                        <input type="submit" value="Submit" class="btn btn-success" />
+                    </div>
+                }
             </div>
         </div>
     </div>
@@ -41,10 +41,12 @@
     {
         <div class="col-md-2">
             <div class="card">
-                <div class="card-body">
-                    <p class="card-text">@reg.Firstname @reg.Lastname</p>
-                    <img src="@reg.GetThumb()" alt="@reg.ToString()" />
-                </div>
+                <a href="/Home/Details?user=@reg.ToString()">
+                    <div class="card-body">
+                        <p class="card-text">@reg.Firstname @reg.Lastname</p>
+                        <img src="@reg.GetThumb()" alt="@reg.ToString()" />
+                    </div>
+                </a>
             </div>
         </div>
     }

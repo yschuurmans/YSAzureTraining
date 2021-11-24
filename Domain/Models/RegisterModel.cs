@@ -1,12 +1,10 @@
 using Microsoft.WindowsAzure.Storage.Table;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
-namespace YSTraining.Models
+namespace Domain.Models
 {
-    public class RegisterModel : TableEntity
+    public class RegisterModel
     {
         public string Firstname { get; set; }
 
@@ -27,7 +25,7 @@ namespace YSTraining.Models
         }
         public string GetThumb()
         {
-            return "https://ystraininglabsa.blob.core.windows.net/photos/" + $"{ToString()}_th.jpg";
+            return "https://ystraininglabsa.blob.core.windows.net/thumbs/" + $"{ToString()}_th.jpg";
         }
     }
 }

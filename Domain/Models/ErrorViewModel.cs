@@ -1,6 +1,6 @@
 using System;
 
-namespace YSTraining.Models
+namespace Domain.Models
 {
     public class ErrorViewModel
     {
