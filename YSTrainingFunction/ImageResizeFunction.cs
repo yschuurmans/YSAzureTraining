@@ -5,10 +5,7 @@ using Domain;
 using Domain.Models;
 using ImageMagick;
 using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Host;
 using Microsoft.Extensions.Logging;
-using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Table;
 using Newtonsoft.Json;
 
 namespace YSTrainingFunction
@@ -22,21 +19,17 @@ namespace YSTrainingFunction
         }
 
         [FunctionName("SaveTable")]
-        public Task SaveTableAsync(
+        public async Task SaveTableAsync(
             [QueueTrigger("registrations", Connection = "AzureWebJobsStorage")] string message,
-            [Sql("dbo.registrations", ConnectionStringSetting = "SqlConnectionString")] out RegisterModel registration,
             ILogger log)
         {
             RegisterModel model = JsonConvert.DeserializeObject<RegisterModel>(message);
 
-            model.RowKey = model.ToString();
-            model.PartitionKey = model.Lastname[0].ToString();
-
-            registration = model;
+            _context.Registers.Add(model);
+            await _context.SaveChangesAsync();
 
             log.LogInformation(message);
             Console.WriteLine(message);
-
         }
 
         [FunctionName("CreateThumbnail")]

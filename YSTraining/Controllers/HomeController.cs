@@ -15,6 +15,7 @@ using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.Table;
 using Microsoft.Extensions.Configuration;
 using Domain.Models;
+using Domain;
 
 namespace YSTraining.Controllers
 {
@@ -23,12 +24,14 @@ namespace YSTraining.Controllers
         private readonly ILogger<HomeController> _logger;
 
         CloudStorageAccount csa;
+        RegistrationContext context;
 
 
-        public HomeController(ILogger<HomeController> logger, IConfiguration configuration)
+        public HomeController(ILogger<HomeController> logger, IConfiguration configuration, RegistrationContext context)
         {
             _logger = logger;
             csa = CloudStorageAccount.Parse(configuration.GetConnectionString("csa"));
+            this.context = context;
         }
 
         public IActionResult Index()
@@ -44,13 +47,15 @@ namespace YSTraining.Controllers
 
             await table.CreateIfNotExistsAsync();
 
+            var firstname = user.Split("_")[0];
             var lastname = user.Split("_")[1];
 
-            var result = await table.ExecuteQuerySegmentedAsync<RegisterModel>(new TableQuery<RegisterModel>(), null);
+            var result = context.Registers.FirstOrDefault(x => x.Firstname == firstname && x.Lastname == lastname);
+            //var result = await table.ExecuteQuerySegmentedAsync<RegisterModel>(new TableQuery<RegisterModel>(), null);
 
             var viewModel = new DetailsModel()
             {
-                Registration = (RegisterModel)result.Results.FirstOrDefault(x=>x.ToString() == user)
+                Registration = result
             };
 
             return View(viewModel);
@@ -64,8 +69,9 @@ namespace YSTraining.Controllers
 
             await table.CreateIfNotExistsAsync();
 
-            var results = await table.ExecuteQuerySegmentedAsync(new TableQuery<RegisterModel>(), null);
-            ViewBag.Registrations = results.Results;
+            ViewBag.Registrations = context.Registers.ToList();
+            //var results = await table.ExecuteQuerySegmentedAsync(new TableQuery<RegisterModel>(), null);
+            //ViewBag.Registrations = results.Results;
 
             return View();
         }
