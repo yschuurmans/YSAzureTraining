@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31402.337
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YSTraining", "YSTraining\YSTraining.csproj", "{83FE4099-19D4-4A92-BDCA-DFF1811026F6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YSTrainingWebjob", "YSTrainingWebjob\YSTrainingWebjob.csproj", "{8E4EB2B0-CEE8-4B21-8FCF-1C91DEC69266}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{83FE4099-19D4-4A92-BDCA-DFF1811026F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83FE4099-19D4-4A92-BDCA-DFF1811026F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83FE4099-19D4-4A92-BDCA-DFF1811026F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83FE4099-19D4-4A92-BDCA-DFF1811026F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E4EB2B0-CEE8-4B21-8FCF-1C91DEC69266}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E4EB2B0-CEE8-4B21-8FCF-1C91DEC69266}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E4EB2B0-CEE8-4B21-8FCF-1C91DEC69266}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E4EB2B0-CEE8-4B21-8FCF-1C91DEC69266}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9BD35DB9-2330-4CD4-B491-1003B126AE2C}
+	EndGlobalSection
+EndGlobal
