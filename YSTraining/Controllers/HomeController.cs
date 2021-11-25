@@ -24,14 +24,14 @@ namespace YSTraining.Controllers
         private readonly ILogger<HomeController> _logger;
 
         CloudStorageAccount csa;
-        RegistrationContext context;
+        CloudStorageAccount cosmosCsa;
 
 
-        public HomeController(ILogger<HomeController> logger, IConfiguration configuration, RegistrationContext context)
+        public HomeController(ILogger<HomeController> logger, IConfiguration configuration)
         {
             _logger = logger;
             csa = CloudStorageAccount.Parse(configuration.GetConnectionString("csa"));
-            this.context = context;
+            cosmosCsa = CloudStorageAccount.Parse(configuration.GetConnectionString("cosmoscsa"));
         }
 
         public IActionResult Index()
@@ -41,21 +41,20 @@ namespace YSTraining.Controllers
 
         public async Task<IActionResult> Details(string user)
         {
-            var tableClient = csa.CreateCloudTableClient();
+            var tableClient = cosmosCsa.CreateCloudTableClient();
 
-            var table = tableClient.GetTableReference("regTable");
+            var table = tableClient.GetTableReference("registrations");
 
             await table.CreateIfNotExistsAsync();
 
             var firstname = user.Split("_")[0];
             var lastname = user.Split("_")[1];
-
-            var result = context.Registers.FirstOrDefault(x => x.Firstname == firstname && x.Lastname == lastname);
-            //var result = await table.ExecuteQuerySegmentedAsync<RegisterModel>(new TableQuery<RegisterModel>(), null);
+            
+            var result = await table.ExecuteQuerySegmentedAsync<RegisterModel>(new TableQuery<RegisterModel>(), null);
 
             var viewModel = new DetailsModel()
             {
-                Registration = result
+                Registration = result.FirstOrDefault(x=>x.ToString() == user)
             };
 
             return View(viewModel);
@@ -63,15 +62,15 @@ namespace YSTraining.Controllers
 
         public async Task<IActionResult> RegisterAsync()
         {
-            var tableClient = csa.CreateCloudTableClient();
+            var tableClient = cosmosCsa.CreateCloudTableClient();
 
-            var table = tableClient.GetTableReference("regTable");
+            var table = tableClient.GetTableReference("registrations");
 
             await table.CreateIfNotExistsAsync();
 
-            ViewBag.Registrations = context.Registers.ToList();
-            //var results = await table.ExecuteQuerySegmentedAsync(new TableQuery<RegisterModel>(), null);
-            //ViewBag.Registrations = results.Results;
+            //ViewBag.Registrations = context.Registers.ToList();
+            var results = await table.ExecuteQuerySegmentedAsync(new TableQuery<RegisterModel>(), null);
+            ViewBag.Registrations = results.Results;
 
             return View();
         }

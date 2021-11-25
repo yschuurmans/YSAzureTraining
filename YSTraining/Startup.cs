@@ -33,10 +33,6 @@ namespace YSTraining
                 loggingBuilder.AddDebug();
                 loggingBuilder.AddAzureWebAppDiagnostics();
             });
-
-            string connectionString = Environment.GetEnvironmentVariable("SqlConnectionString");
-            services.AddDbContext<RegistrationContext>(
-              options => options.UseSqlServer(connectionString));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
