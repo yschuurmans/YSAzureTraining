@@ -1,3 +1,4 @@
+using Domain.Models;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Configuration;
 using Microsoft.WindowsAzure.Storage;
@@ -12,7 +13,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using YSTrainingWebjob.Models;
 
 namespace YSTrainingWebjob
 {

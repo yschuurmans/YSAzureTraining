@@ -392,3 +392,5 @@ YSTrainingWebjob/Properties/launchSettings.json
 YSTrainingWebjob/Properties/ServiceDependencies/ystraining - Web Deploy/profile.arm.json
 YSTrainingFunction/Properties/
 YSTraining/Properties/launchSettings.json
+YSImagesApiFrontend/appsettings.json
+YSImagesApiBackend/appsettings.json

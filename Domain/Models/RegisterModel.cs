@@ -11,8 +11,11 @@ namespace Domain.Models
         public string Lastname { get; set; }
 
         [JsonIgnore]
-        //[NotMapped]
+        [IgnoreProperty]
         public List<string> Photos { get; set; }
+
+        [IgnoreProperty]
+        public byte[] Photo { get; set; }
 
         public override string ToString()
         {
