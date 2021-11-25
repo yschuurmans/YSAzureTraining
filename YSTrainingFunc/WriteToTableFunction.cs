@@ -13,7 +13,7 @@ namespace YSTrainingFunc
     public class WriteToTableFunction
     {
         [FunctionName("WriteToTableFunction")]
-        [return: Table("registrations", Connection = "CosmosDBConnection")]
+        [return: Table("cosmosregistrations", Connection = "CosmosDBConnection")]
         public RegisterModel Run(
             [QueueTrigger("registrations", Connection = "AzureWebJobsStorage")]string message, ILogger log)
         {

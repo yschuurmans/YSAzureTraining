@@ -43,7 +43,7 @@ namespace YSTraining.Controllers
         {
             var tableClient = cosmosCsa.CreateCloudTableClient();
 
-            var table = tableClient.GetTableReference("registrations");
+            var table = tableClient.GetTableReference("cosmosregistrations");
 
             await table.CreateIfNotExistsAsync();
 
@@ -64,7 +64,7 @@ namespace YSTraining.Controllers
         {
             var tableClient = cosmosCsa.CreateCloudTableClient();
 
-            var table = tableClient.GetTableReference("registrations");
+            var table = tableClient.GetTableReference("cosmosregistrations");
 
             await table.CreateIfNotExistsAsync();
 
