@@ -26,13 +26,24 @@ namespace YSTraining
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews(); 
+            services.AddControllersWithViews();
             services.AddLogging(loggingBuilder =>
             {
                 loggingBuilder.AddConsole();
                 loggingBuilder.AddDebug();
                 loggingBuilder.AddAzureWebAppDiagnostics();
             });
+
+            Microsoft.ApplicationInsights.AspNetCore.Extensions.ApplicationInsightsServiceOptions aiOptions
+            = new Microsoft.ApplicationInsights.AspNetCore.Extensions.ApplicationInsightsServiceOptions();
+            // Disables adaptive sampling.
+            aiOptions.EnableAdaptiveSampling = false;
+
+            // Disables QuickPulse (Live Metrics stream).
+            aiOptions.EnableQuickPulseMetricStream = false;
+            aiOptions.ConnectionString = "InstrumentationKey=a491e4fc-257f-42d6-91dc-df97e3d67ffd;IngestionEndpoint=https://westeurope-5.in.applicationinsights.azure.com/";
+            aiOptions.InstrumentationKey = "a491e4fc-257f-42d6-91dc-df97e3d67ffd";
+            services.AddApplicationInsightsTelemetry(aiOptions);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

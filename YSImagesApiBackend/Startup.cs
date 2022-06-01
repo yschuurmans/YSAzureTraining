@@ -27,6 +27,13 @@ namespace YSImagesApiBackend
         {
             services.AddControllers();
             services.AddSwaggerGen();
+
+            services.AddLogging(loggingBuilder =>
+            {
+                loggingBuilder.AddConsole();
+                loggingBuilder.AddDebug();
+                loggingBuilder.AddAzureWebAppDiagnostics();
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
